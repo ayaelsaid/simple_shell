@@ -9,8 +9,6 @@ ssize_t _read(char **line)
 	ssize_t read;
 	size_t n = 0;
 
-	while (1)
-	{
 	if (isatty(STDIN_FILENO))
 	_prompt();
 	read = getline(line, &n, stdin);
@@ -19,25 +17,21 @@ ssize_t _read(char **line)
 		free(*line);
 		return (0);
 	}
-	(*line)[read - 1] = '\0';
-	}
 	return (read);
 }
 /**
  * main - ...
- * @argv: ...
- * @argc: ...
  * Return: ...
 */
-int main(int argc, char **argv)
+int main(void)
 {
 	ssize_t readline;
-	(void)argc;
+	char *line;
+	int status = 0;
+	char **mytokens;
 
 	while (1)
 	{
-	char *line = NULL;
-
 	readline = _read(&line);
 	if (readline == 0)
 	{
@@ -45,15 +39,16 @@ int main(int argc, char **argv)
 		{
 			_putchar('\n');
 		}
-		free(line);
+		freestring(&line);
 		exit(0);
 	}
-	argv = _tokenize(line);
-	if (argv == NULL)
+	mytokens = _tokenize(line);
+	if (mytokens == NULL)
 	{
-	free(line);
+	return2;
 	}
-	_exe(argv, argv, environ);
+	status = _exe(mytokens, environ);
+	freestring(mytokens);
 	}
 	return (0);
 }
