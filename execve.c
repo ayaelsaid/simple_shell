@@ -3,17 +3,16 @@
  * _exe - ...
  * @word: ...
  * @environ: ...
- * @argv: ...
  * Return: ...
 */
-int _exe(char **word, char **argv, char **environ)
+int _exe(char **word, char **environ)
 {
 	int status = 0;
 	pid_t child_pid;
 
 	if (word == NULL || word[0] == NULL)
 	{
-		exit(0);
+		return(0);
 	}
 	child_pid = fork();
 	if (child_pid == -1)
@@ -25,15 +24,13 @@ int _exe(char **word, char **argv, char **environ)
 	{
 		if (execve(word[0], word, environ) == -1)
 		{
-			perror(argv[0]);
-			freestring(word);
-			exit(0);
+			perror(word[0]);
+			exit(127);
 		}
 	}
 	else
 	{
 		waitpid(child_pid, &status, 0);
-		freestring(word);
 	}
 	return (WEXITSTATUS(status));
 }
@@ -60,6 +57,6 @@ char *_strdup(char *str)
 		return (NULL);
 	for (j = 0; j < size; j++)
 	ptr[j] = str[j];
-	ptr[size] = '\0';
+	ptr[size - 1] = '\0';
 	return (ptr);
 }
