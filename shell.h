@@ -11,11 +11,11 @@
 extern char **environ;
 int _putchar(char c);
 void _prompt(void);
-int _exe(char **word,char **argv, char **environ);
+int _exe(char **word, char **environ);
 char **_tokenize(char *command);
 void _puts(char *str);
 char *_strdup(char *str);
 ssize_t _read(char **line);
 void freestring(char **args);
-int main(int argc, char **argv);
+int main(void);
 #endif
