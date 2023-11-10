@@ -12,7 +12,7 @@ int _exe(char **word, char **environ)
 
 	if (word == NULL || word[0] == NULL)
 	{
-		return(0);
+		return (0);
 	}
 	child_pid = fork();
 	if (child_pid == -1)
@@ -32,7 +32,7 @@ int _exe(char **word, char **environ)
 	{
 		waitpid(child_pid, &status, 0);
 	}
-	return (WEXITSTATUS(status));
+	return (status);
 }
 /**
  * *_strdup - a function that returns a pointer to

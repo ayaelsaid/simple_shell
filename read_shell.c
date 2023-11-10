@@ -27,7 +27,6 @@ int main(void)
 {
 	ssize_t readline;
 	char *line;
-	int status = 0;
 	char **mytokens;
 
 	while (1)
@@ -39,16 +38,18 @@ int main(void)
 		{
 			_putchar('\n');
 		}
-		freestring(&line);
-		exit(0);
+		return (0);
 	}
 	mytokens = _tokenize(line);
 	if (mytokens == NULL)
 	{
-	return2;
+	return (0);
 	}
-	status = _exe(mytokens, environ);
+	 _exe(mytokens, environ);
 	freestring(mytokens);
+	mytokens = NULL;
+	free(line);
+	line = NULL;
 	}
 	return (0);
 }
