@@ -20,8 +20,8 @@ void _puts(char *str)
 	while (str && str[i] != '\0')
 	{
 		_putchar(str[i]);
+		i++;
 	}
-	_putchar('\n');
 }
 /**
  * _prompt - ...
@@ -46,6 +46,7 @@ void freestring(char **args)
 	for (i = 0; args[i] != NULL; i++)
 	{
 		free(args[i]);
+		args[i] = NULL;
 	}
 	free(args);
 }
@@ -57,30 +58,30 @@ void freestring(char **args)
 char **_tokenize(char *command)
 {
 	char *token;
-	char **argv;
-	size_t argc = 1;
+	char **spiltedline;
+	int i = 0;
 
 	if (command == NULL)
 		return (NULL);
-	argv = malloc((MAXSIZE + 1) * sizeof(char *));
-	if (argv == NULL)
+	spiltedline = malloc((MAXSIZE + 1) * sizeof(char *));
+	if (spiltedline == NULL)
 	{
 		free(command);
 		return (NULL);
 	}
 	token = strtok(command, DELIM);
-	while (token != NULL && argc < MAXSIZE)
+	while (token != NULL)
 	{
-		argv[argc] = _strdup(token);
-		if (argv[argc] == NULL)
+		spiltedline[i] = _strdup(token);
+		if (spiltedline[i] == NULL)
 		{
 			free(command);
-			freestring(argv);
+			freestring(spiltedline);
 			return (NULL);
 		}
 		token = strtok(NULL, DELIM);
-		argc++;
+		i++;
 	}
-	argv[argc] = NULL;
-	return (argv);
+	spiltedline[i] = NULL;
+	return (spiltedline);
 }
