@@ -17,5 +17,8 @@ void _puts(char *str);
 char *_strdup(char *str);
 ssize_t _read(char **line);
 void freestring(char **args);
+int _strcmp(char *s1, char *s2);
+void _print_env(void);
+void _myexit(void);
 int main(void);
 #endif
